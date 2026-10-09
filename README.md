@@ -1,84 +1,85 @@
 # CursorClick
 
-Лёгкое приложение для Windows, которое показывает визуальные эффекты на месте нажатия мыши и постоянное свечение указателя. Программа работает в системном трее и не опрашивает положение мыши в цикле: события кнопок и перемещения получает через низкоуровневый системный mouse hook.
+A lightweight Windows app that displays visual effects where you click and a persistent glow around the pointer. It runs in the system tray and does not poll the mouse position in a loop: button and movement events are received through a low-level system mouse hook.
 
-## Скачать и запустить
+## Download and run
 
-Откройте [последний готовый выпуск](../../releases/latest) и скачайте `CursorClick-Portable.zip`. Распакуйте архив и запустите `CursorClick.exe`. Для обычного запуска установка не нужна.
+Open the [latest release](../../releases/latest) and download `CursorClick-Portable.zip`. Extract the archive and run `CursorClick.exe`. No installation is required for normal use.
 
-В архив также входят `INSTALL.ps1`, `UNINSTALL.ps1` и эта инструкция. Установка копирует приложение в `%LOCALAPPDATA%\CursorClick` и создаёт ярлык в меню «Пуск». Удаление убирает приложение и ярлык, но сохраняет настройки пользователя.
+The archive also includes `INSTALL.ps1`, `UNINSTALL.ps1`, and this guide. Installation copies the app to `%LOCALAPPDATA%\CursorClick` and creates a Start Menu shortcut. Uninstallation removes the app and shortcut but keeps your settings.
 
-## Возможности
+## Features
 
-- Синие, красные и зелёные эффекты для левой, правой и средней кнопок мыши.
-- Пять форм: круг, точка, крест, волна и искры. Для каждой кнопки форма и цвет задаются отдельно.
-- Дополнительная золотая волна при двойном клике.
-- Периодические эффекты при удержании кнопки мыши.
-- Постоянное свечение вокруг указателя с настройкой цвета, размера и яркости.
-- Ползунки размера, прозрачности и длительности анимации.
-- Пресеты Minimal, Normal и Bright, предпросмотр и сброс настроек.
-- Импорт и экспорт настроек в XML.
-- Ограничение частоты эффектов при быстрых кликах.
-- Автоматическая пауза в полноэкранных приложениях и при высокой загрузке CPU. Рабочий стол и панель задач Windows не считаются полноэкранными приложениями.
-- Исключения для приложений по имени процесса, например `game.exe, photoshop.exe`.
-- Глобальная горячая клавиша `Ctrl+Alt+C` для включения и выключения эффектов.
-- Не более одного экземпляра приложения. Повторный запуск открывает окно настроек.
-- Индикатор нагрузки CPU и использования памяти в меню трея.
-- Автозапуск Windows по желанию пользователя.
-- Поддержка DPI и координат экранов с несколькими мониторами.
-- Мягкая per-pixel alpha графика без чёрного остатка при затухании.
+- Blue, red, and green effects for the left, right, and middle mouse buttons.
+- Five shapes: circle, dot, cross, wave, and sparkles. Shape and color can be configured separately for each button.
+- An additional golden wave on double-click.
+- Repeating effects while a mouse button is held.
+- Persistent pointer glow with configurable color, size, and brightness.
+- Controls for effect size, opacity, and animation duration.
+- Minimal, Normal, and Bright presets, plus preview and reset options.
+- Import and export settings as XML.
+- Effect rate limiting for rapid clicks.
+- Automatic pause in fullscreen apps and under high CPU load. The Windows desktop and taskbar are not treated as fullscreen apps.
+- Per-process exclusions, such as `game.exe, photoshop.exe`.
+- Global `Ctrl+Alt+C` shortcut to toggle effects on and off.
+- Single-instance behavior: launching the app again opens its settings window.
+- CPU load and memory usage indicators in the tray menu.
+- Optional launch at Windows startup.
+- English, Ukrainian, and Russian interface. On first launch, the app follows the Windows language; you can change it in settings.
+- DPI awareness and support for coordinates across multiple monitors.
+- Smooth per-pixel alpha graphics that fade without a black afterimage.
 
-## Управление
+## Controls
 
-- Дважды щёлкните значок CursorClick в системном трее, чтобы открыть настройки.
-- Щёлкните значок правой кнопкой для меню включения/выключения, выбора пресета, автозапуска, просмотра нагрузки и выхода.
-- Нажмите `Ctrl+Alt+C`, чтобы быстро включить или выключить эффекты.
-- В настройках щёлкните по цветному образцу, чтобы выбрать цвет из палитры Windows.
+- Double-click the CursorClick tray icon to open settings.
+- Right-click the icon for the menu: toggle effects, choose a preset, configure startup, view resource usage, or exit.
+- Press `Ctrl+Alt+C` to quickly toggle effects.
+- Click a color swatch in settings to choose a color from the Windows palette.
 
-## Настройки и данные
+## Settings and data
 
-Настройки хранятся в `%APPDATA%\CursorClick\settings.xml`. Это отдельная папка каждого пользователя Windows. Portable-архив не содержит пользовательских настроек, поэтому на другом ПК программа создаст новый файл настроек при первом запуске. Журнал восстановления после сбоя, если он понадобится, хранится рядом в `crash.log`.
+Settings are stored in `%APPDATA%\CursorClick\settings.xml`, in a separate folder for each Windows user. The portable archive does not include user settings, so the app creates a new settings file the first time it runs on another PC. If needed, a crash recovery log is stored alongside it as `crash.log`.
 
-Автозапуск создаёт запись только в пользовательском разделе реестра Windows и копирует текущий исполняемый файл в `%LOCALAPPDATA%\CursorClick\CursorClick.exe`. Права администратора не нужны. Если перенести приложение на другой ПК, включите автозапуск заново в меню трея или настройках.
+Startup configuration adds an entry only to the current user's Windows registry and copies the executable to `%LOCALAPPDATA%\CursorClick\CursorClick.exe`. Administrator privileges are not required. If you move the app to another PC, enable startup again from the tray menu or settings.
 
-## Требования и переносимость
+## Requirements and portability
 
-- Windows 10 или Windows 11.
-- .NET Framework 4.x. На актуальных Windows 10/11 он обычно уже установлен как системный компонент.
-- Интернет и внешние библиотеки для работы не требуются.
+- Windows 10 or Windows 11.
+- .NET Framework 4.x, usually already installed as a Windows component on current Windows 10/11 systems.
+- No internet connection or external libraries are required at runtime.
 
-Приложение собрано как AnyCPU и использует системные WinForms, GDI+, XML и Win32 API. Оно не предназначено для macOS или Linux. Не подписано цифровым сертификатом, поэтому Windows SmartScreen может показать предупреждение при первом запуске файла, полученного из интернета.
+The app is built as AnyCPU and uses built-in WinForms, GDI+, XML, and Win32 APIs. It is not intended for macOS or Linux. The executable is not digitally signed, so Windows SmartScreen may show a warning the first time you run a file downloaded from the internet.
 
-## Сборка из исходников
+## Build from source
 
-Для сборки на Windows нужен Windows PowerShell и компилятор .NET Framework `csc.exe` (обычно уже находится в Windows/.NET Framework Developer Pack). .NET SDK, NuGet и скачивание зависимостей не требуются.
+To build on Windows, you need Windows PowerShell and the .NET Framework `csc.exe` compiler (usually included with the Windows/.NET Framework Developer Pack). The .NET SDK, NuGet, and downloaded dependencies are not required.
 
 ```powershell
 .\BUILD.ps1
 ```
 
-Команда создаст `CursorClick.exe` и иконку `CursorClick.ico`. Чтобы собрать ZIP с приложением и установочными скриптами:
+This creates `CursorClick.exe` and the `CursorClick.ico` icon. To package a ZIP with the app and installation scripts, run:
 
 ```powershell
 .\PACK.ps1
 ```
 
-Готовый архив появится по адресу `dist\CursorClick-Portable.zip`.
+The archive will be created at `dist\CursorClick-Portable.zip`.
 
-## Структура проекта
+## Project structure
 
-- `CursorClickApp.cs` — приложение: трей, настройки, системный hook мыши, эффекты и управление окнами.
-- `BUILD.ps1` — генерация иконки и компиляция `.exe`.
-- `PACK.ps1` — сборка portable ZIP.
-- `INSTALL.ps1`, `UNINSTALL.ps1` — пользовательская установка и удаление.
-- `CursorClick.exe` — готовое приложение.
-- `dist/CursorClick-Portable.zip` — portable-пакет для распространения.
-- `CursorClick.ps1`, `CursorClick_ORIGINAL_V7.ps1` — прежние PowerShell-версии для совместимости и справки.
+- `CursorClickApp.cs` — app, tray icon, settings, system mouse hook, effects, and window management.
+- `BUILD.ps1` — generates the icon and compiles the `.exe`.
+- `PACK.ps1` — builds the portable ZIP.
+- `INSTALL.ps1`, `UNINSTALL.ps1` — per-user installation and removal scripts.
+- `CursorClick.exe` — ready-to-run application.
+- `dist/CursorClick-Portable.zip` — portable distribution package.
+- `CursorClick.ps1`, `CursorClick_ORIGINAL_V7.ps1` — earlier PowerShell versions retained for compatibility and reference.
 
-## Диагностика
+## Troubleshooting
 
-Если эффекты отключились, проверьте состояние в меню трея и горячую клавишу `Ctrl+Alt+C`. На время полноэкранного приложения или высокой загрузки CPU автоматическая пауза может быть ожидаемой; оба режима можно отключить в настройках. Чтобы закрыть приложение, выберите «Выход» в меню значка.
+If effects stop, check their state in the tray menu and try the `Ctrl+Alt+C` shortcut. Automatic pause may be expected while a fullscreen app is active or CPU load is high; both options can be disabled in settings. To close the app, choose Exit from the tray icon menu.
 
-## Лицензия
+## License
 
-Лицензия проекта пока не задана. До её добавления права на исходный код сохраняются за автором; не предполагайте, что проект можно свободно переиспользовать или распространять сверх разрешённого законом.
+No license has been specified for this project yet. Until one is added, copyright remains with the author; do not assume the source can be freely reused or redistributed beyond what applicable law permits.
