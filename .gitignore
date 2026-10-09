@@ -1,0 +1,11 @@
+# User-specific settings and diagnostics
+settings.xml
+crash.log
+*.log
+
+# Temporary packaging/build files
+dist/CursorClick-Portable/
+*.tmp
+*.pdb
+*.obj
+*.ilk
